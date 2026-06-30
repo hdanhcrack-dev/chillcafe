@@ -29,47 +29,23 @@
 
     /* Animation keyframes */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     @keyframes fadeInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     @keyframes scaleIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     @keyframes float {
@@ -107,6 +83,20 @@
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(20px); }
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     /* Header */
@@ -219,7 +209,6 @@
                   url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
       background-size: cover;
       background-position: center 45%;
-      background-attachment: fixed;
       min-height: 500px;
       display: flex;
       align-items: center;
@@ -262,25 +251,6 @@
       opacity: 0.95;
       text-shadow: 1px 1px 8px black;
       animation: fadeInUp 1s ease-out 0.3s both;
-    }
-
-    .hero-steam {
-      position: absolute;
-      bottom: 80px;
-      right: 25%;
-      font-size: 2rem;
-      animation: steam 2s ease-out infinite;
-      color: rgba(255,255,255,0.8);
-    }
-    .hero-steam:nth-child(2) {
-      right: 30%;
-      animation-delay: 0.7s;
-      font-size: 1.5rem;
-    }
-    .hero-steam:nth-child(3) {
-      right: 20%;
-      animation-delay: 1.4s;
-      font-size: 1.8rem;
     }
 
     /* Section titles */
@@ -328,20 +298,6 @@
     .card:nth-child(4) { animation-delay: 0.4s; }
     .card:nth-child(5) { animation-delay: 0.5s; }
     .card:nth-child(6) { animation-delay: 0.6s; }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: left 0.6s ease;
-    }
-    .card:hover::before {
-      left: 100%;
-    }
 
     .card:hover {
       transform: translateY(-10px) scale(1.02);
@@ -429,22 +385,6 @@
       position: relative;
       overflow: hidden;
     }
-    .add-btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-    .add-btn:hover::before {
-      width: 300px;
-      height: 300px;
-    }
     .add-btn:hover {
       background: linear-gradient(135deg, #c9a24d, #9e7c2c);
       transform: translateY(-3px);
@@ -452,12 +392,6 @@
     }
     .add-btn:active {
       transform: translateY(-1px) scale(0.98);
-    }
-    .add-btn i {
-      transition: transform 0.3s ease;
-    }
-    .add-btn:hover i {
-      transform: rotate(90deg);
     }
 
     /* Gallery */
@@ -517,9 +451,6 @@
       box-shadow: 0 25px 50px rgba(0,0,0,0.08);
       animation: fadeInUp 0.8s ease-out;
       border: 1px solid #f0e4d4;
-    }
-    .cart-panel h2 {
-      animation: fadeInLeft 0.6s ease-out;
     }
     .cart-items {
       margin: 15px 0;
@@ -593,24 +524,135 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 35px rgba(62, 44, 27, 0.5);
     }
-    .checkout-btn:active {
-      transform: translateY(-1px) scale(0.98);
-    }
 
-    /* Footer */
-    footer {
+    /* Modal đăng nhập/đặt hàng */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal {
+      background: white;
+      border-radius: 30px;
+      padding: 35px 30px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      animation: modalFadeIn 0.4s ease-out;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      background: #f5f0e8;
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #666;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover {
+      background: #e74c3c;
+      color: white;
+      transform: rotate(90deg);
+    }
+    .modal h2 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #3e2c1b;
       text-align: center;
-      padding: 40px 20px;
-      color: #6b5a47;
-      border-top: 1px solid #e2d2bd;
-      margin-top: 50px;
-      background: linear-gradient(180deg, transparent, rgba(184, 139, 64, 0.05));
     }
-    footer i {
-      animation: float 3s ease-in-out infinite;
+    .modal p {
+      text-align: center;
+      color: #7b6b5a;
+      margin-bottom: 25px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #4a3927;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e8d5ba;
+      border-radius: 15px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s;
+      background: #fefaf5;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #b68b40;
+      box-shadow: 0 0 0 3px rgba(184, 139, 64, 0.15);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .submit-order-btn {
+      background: linear-gradient(135deg, #b68b40, #8b691b);
+      border: none;
+      color: white;
+      padding: 16px;
+      border-radius: 30px;
+      font-weight: bold;
+      width: 100%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 20px rgba(184, 139, 64, 0.4);
+    }
+    .submit-order-btn:hover {
+      background: linear-gradient(135deg, #c9a24d, #9e7c2c);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(184, 139, 64, 0.6);
+    }
+    .submit-order-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      box-shadow: none;
     }
 
-    /* Toast notification */
+    /* Loading spinner */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin-slow 0.8s linear infinite;
+      margin-right: 8px;
+    }
+
+    /* Toast */
     .toast {
       position: fixed;
       bottom: 30px;
@@ -622,17 +664,20 @@
       box-shadow: 0 10px 30px rgba(184, 139, 64, 0.4);
       font-weight: 600;
       z-index: 1000;
-      animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-out 2.5s forwards;
+      animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-out 3s forwards;
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    @keyframes slideInRight {
-      from { transform: translateX(100px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes fadeOut {
-      to { opacity: 0; transform: translateY(20px); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #6b5a47;
+      border-top: 1px solid #e2d2bd;
+      margin-top: 50px;
+      background: linear-gradient(180deg, transparent, rgba(184, 139, 64, 0.05));
     }
 
     @media (max-width: 768px) {
@@ -645,7 +690,6 @@
       }
       .hero {
         min-height: 380px;
-        background-attachment: scroll;
       }
       .gallery {
         grid-template-columns: 1fr;
@@ -653,11 +697,15 @@
       .menu-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       }
+      .modal {
+        padding: 25px 20px;
+        margin: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Hạt cà phê bay (trang trí) -->
+  <!-- Hạt cà phê trang trí -->
   <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.03;">
     <i class="fas fa-coffee" style="position: absolute; top: 10%; left: 5%; font-size: 4rem; animation: float 6s ease-in-out infinite;"></i>
     <i class="fas fa-coffee" style="position: absolute; top: 70%; right: 8%; font-size: 5rem; animation: float 7s ease-in-out infinite 1s;"></i>
@@ -687,9 +735,6 @@
       <h1>☕ Chill cùng tách cà phê</h1>
       <p>Không gian ấm cúng • Hương vị đậm đà • Giao hàng tận nơi</p>
     </div>
-    <div class="hero-steam"><i class="fas fa-mug-hot"></i></div>
-    <div class="hero-steam"><i class="fas fa-coffee"></i></div>
-    <div class="hero-steam"><i class="fas fa-mug-hot"></i></div>
   </section>
 
   <main class="container">
@@ -728,10 +773,61 @@
       </div>
       <div class="total" id="cart-total">Tổng cộng: 0₫</div>
       <button class="checkout-btn" id="checkout-btn">
-        <i class="fas fa-credit-card"></i> Thanh toán ngay
+        <i class="fas fa-credit-card"></i> Đặt hàng ngay
       </button>
     </div>
   </main>
+
+  <!-- Modal đăng nhập / đặt hàng -->
+  <div class="modal-overlay" id="order-modal">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2>📋 Thông tin đặt hàng</h2>
+      <p>Vui lòng nhập số điện thoại và địa chỉ giao hàng</p>
+      
+      <form id="order-form">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Họ và tên</label>
+          <input type="text" id="customer-name" placeholder="Nguyễn Văn A" required>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-phone"></i> Số điện thoại *</label>
+          <input type="tel" id="customer-phone" placeholder="0912345678" 
+                 pattern="[0-9]{10,11}" required
+                 title="Vui lòng nhập số điện thoại 10-11 chữ số">
+          <small style="color: #888; display: block; margin-top: 5px;">
+            🔐 Số điện thoại sẽ được dùng để xác nhận đơn hàng
+          </small>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-map-marker-alt"></i> Địa chỉ giao hàng *</label>
+          <textarea id="customer-address" placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố" required></textarea>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-sticky-note"></i> Ghi chú (không bắt buộc)</label>
+          <textarea id="order-note" placeholder="Ví dụ: Ít đá, nhiều sữa, giao giờ hành chính..."></textarea>
+        </div>
+
+        <!-- Tóm tắt đơn hàng -->
+        <div style="background: #fefaf5; border-radius: 15px; padding: 15px; margin-bottom: 20px; border: 1px solid #f0e4d4;">
+          <strong style="display: block; margin-bottom: 10px;">🧾 Đơn hàng của bạn:</strong>
+          <div id="order-summary" style="font-size: 0.95rem; color: #4a3927;"></div>
+          <div style="border-top: 1px solid #e8d5ba; margin-top: 10px; padding-top: 10px; font-weight: 700; color: #b68b40;">
+            Tổng cộng: <span id="order-total-display">0₫</span>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-order-btn" id="submit-order-btn">
+          <i class="fas fa-paper-plane"></i> Xác nhận đặt hàng
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container"></div>
 
   <footer>
     <p style="font-size: 1.2rem; font-weight: 600;">© 2025 Hương Coffee Chill</p>
@@ -744,11 +840,19 @@
     </div>
   </footer>
 
-  <div id="toast-container"></div>
-
   <script>
     (function() {
-      // Menu với hình ảnh chân thực
+      // ============ CONFIG ============
+      // Thay đổi URL webhook tại đây để nhận thông tin đơn hàng
+      const ADMIN_WEBHOOK_URL = 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'; // Thay bằng webhook Slack thật
+      // Hoặc dùng webhook khác:
+      // const ADMIN_WEBHOOK_URL = 'https://discord.com/api/webhooks/...';
+      // const ADMIN_WEBHOOK_URL = 'https://your-server.com/api/orders';
+      
+      // Số điện thoại admin nhận SMS (nếu tích hợp với dịch vụ SMS)
+      const ADMIN_PHONE = '0393515434'; // Thay số admin thật
+      // ===============================
+
       const menuItems = [
         { 
           id: 1, 
@@ -802,19 +906,18 @@
 
       let cart = [];
 
-      // Toast notification
-      function showToast(message) {
+      // ============ TOAST ============
+      function showToast(message, type = 'success') {
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
         toast.className = 'toast';
-        toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+        toast.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i> ${message}`;
         container.appendChild(toast);
-        setTimeout(() => {
-          toast.remove();
-        }, 3000);
+        setTimeout(() => toast.remove(), 3500);
       }
 
-      // Render menu
+      // ============ RENDER MENU ============
       const menuContainer = document.getElementById('menu-container');
       function renderMenu() {
         menuContainer.innerHTML = menuItems.map(item => `
@@ -834,7 +937,7 @@
         `).join('');
       }
 
-      // Cập nhật giỏ hàng
+      // ============ UPDATE CART UI ============
       function updateCartUI() {
         const cartItemsDiv = document.getElementById('cart-items');
         const cartCountSpan = document.getElementById('cart-count');
@@ -845,7 +948,7 @@
 
         if (totalItems > 0) {
           cartCountSpan.style.animation = 'none';
-          cartCountSpan.offsetHeight; // trigger reflow
+          cartCountSpan.offsetHeight;
           cartCountSpan.style.animation = 'bounce 0.5s ease-out';
         }
 
@@ -888,7 +991,7 @@
         });
       }
 
-      // Thêm vào giỏ
+      // ============ ADD TO CART ============
       function addToCart(productId) {
         const product = menuItems.find(p => p.id === productId);
         if (!product) return;
@@ -896,19 +999,12 @@
         if (existing) {
           existing.quantity += 1;
         } else {
-          cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            quantity: 1
-          });
+          cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1 });
         }
         updateCartUI();
         showToast(`Đã thêm ${product.name} vào giỏ hàng`);
-        document.getElementById('cart-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
-      // Event delegation cho nút thêm
       menuContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('.add-btn');
         if (btn) {
@@ -917,35 +1013,186 @@
         }
       });
 
-      // Thanh toán
-      document.getElementById('checkout-btn').addEventListener('click', () => {
+      // ============ MODAL HANDLING ============
+      const modal = document.getElementById('order-modal');
+      const modalClose = document.getElementById('modal-close');
+      const orderForm = document.getElementById('order-form');
+      const submitBtn = document.getElementById('submit-order-btn');
+      const orderSummary = document.getElementById('order-summary');
+      const orderTotalDisplay = document.getElementById('order-total-display');
+
+      function openModal() {
         if (cart.length === 0) {
-          alert('🛒 Bạn chưa có món nào trong giỏ. Thêm đồ uống chill đi nào!');
+          showToast('Giỏ hàng trống, vui lòng chọn món trước', 'error');
           return;
         }
-        const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
-        const itemList = cart.map(i => `${i.name} x${i.quantity}`).join('\n');
-        
-        // Animation trước khi alert
-        const btn = document.getElementById('checkout-btn');
-        btn.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          btn.style.transform = '';
-          alert(`✨ Cảm ơn bạn đã đặt hàng tại Hương Coffee!\n\n📋 ${itemList}\n\n💵 Tổng cộng: ${total.toLocaleString('vi-VN')}₫\n\n☕ Chúng mình sẽ chuẩn bị đồ ngay.`);
-          cart = [];
-          updateCartUI();
-          showToast('Đặt hàng thành công! Cảm ơn bạn ❤️');
-        }, 200);
+
+        // Hiển thị tóm tắt đơn hàng trong modal
+        let summaryHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          summaryHTML += `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+              <span>${item.name} x${item.quantity}</span>
+              <span>${itemTotal.toLocaleString('vi-VN')}₫</span>
+            </div>
+          `;
+        });
+        orderSummary.innerHTML = summaryHTML;
+        orderTotalDisplay.textContent = `${total.toLocaleString('vi-VN')}₫`;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        orderForm.reset();
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
       });
 
-      // Scroll tới giỏ hàng
+      // ============ GỬI THÔNG TIN CHO ADMIN ============
+      async function sendOrderToAdmin(orderData) {
+        // 1. Gửi qua Webhook (Slack/Discord/Server)
+        if (ADMIN_WEBHOOK_URL && !ADMIN_WEBHOOK_URL.includes('YOUR/SLACK/WEBHOOK')) {
+          try {
+            const payload = {
+              text: `🛎️ *ĐƠN HÀNG MỚI*\n\n` +
+                    `👤 *Khách hàng:* ${orderData.customerName}\n` +
+                    `📞 *SĐT:* ${orderData.phone}\n` +
+                    `📍 *Địa chỉ:* ${orderData.address}\n` +
+                    `📝 *Ghi chú:* ${orderData.note || 'Không có'}\n\n` +
+                    `🧾 *Chi tiết đơn:*\n${orderData.items.map(i => `  • ${i.name} x${i.quantity} - ${(i.price * i.quantity).toLocaleString('vi-VN')}₫`).join('\n')}\n\n` +
+                    `💰 *Tổng cộng:* ${orderData.total.toLocaleString('vi-VN')}₫\n` +
+                    `🕐 *Thời gian:* ${new Date().toLocaleString('vi-VN')}`
+            };
+
+            await fetch(ADMIN_WEBHOOK_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            console.log('✅ Đã gửi webhook thành công');
+          } catch (err) {
+            console.warn('⚠️ Gửi webhook thất bại:', err);
+          }
+        }
+
+        // 2. Gửi SMS cho admin (giả lập - cần tích hợp dịch vụ SMS thật)
+        console.log(`
+        ┌─────────────────────────────────────────┐
+        │ 📱 GIẢ LẬP GỬI SMS ĐẾN ADMIN (${ADMIN_PHONE}) │
+        ├─────────────────────────────────────────┤
+        │ ĐƠN HÀNG MỚI TỪ: ${orderData.customerName}
+        │ SĐT KHÁCH: ${orderData.phone}
+        │ ĐỊA CHỈ: ${orderData.address}
+        │ TỔNG TIỀN: ${orderData.total.toLocaleString('vi-VN')}₫
+        │ SỐ MÓN: ${orderData.items.reduce((s,i) => s + i.quantity, 0)}
+        └─────────────────────────────────────────┘
+        `);
+
+        // 3. Lưu vào localStorage để xem lịch sử
+        const orders = JSON.parse(localStorage.getItem('coffee_orders') || '[]');
+        orders.push({
+          ...orderData,
+          timestamp: new Date().toISOString()
+        });
+        localStorage.setItem('coffee_orders', JSON.stringify(orders));
+      }
+
+      // ============ SUBMIT ORDER ============
+      orderForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const customerName = document.getElementById('customer-name').value.trim();
+        const phone = document.getElementById('customer-phone').value.trim();
+        const address = document.getElementById('customer-address').value.trim();
+        const note = document.getElementById('order-note').value.trim();
+
+        // Validate
+        if (!customerName || !phone || !address) {
+          showToast('Vui lòng điền đầy đủ thông tin', 'error');
+          return;
+        }
+
+        if (!/^[0-9]{10,11}$/.test(phone)) {
+          showToast('Số điện thoại không hợp lệ (10-11 số)', 'error');
+          return;
+        }
+
+        if (cart.length === 0) {
+          showToast('Giỏ hàng trống!', 'error');
+          return;
+        }
+
+        // Disable nút để tránh double submit
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner"></span> Đang xử lý...';
+
+        const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+        const orderData = {
+          customerName,
+          phone,
+          address,
+          note,
+          items: [...cart],
+          total,
+          orderTime: new Date().toLocaleString('vi-VN')
+        };
+
+        // Gửi thông tin cho admin
+        await sendOrderToAdmin(orderData);
+
+        // Giả lập delay xử lý
+        setTimeout(() => {
+          // Thông báo thành công
+          alert(`✅ ĐẶT HÀNG THÀNH CÔNG!\n\n` +
+                `👤 ${customerName}\n` +
+                `📞 ${phone}\n` +
+                `📍 ${address}\n\n` +
+                `🧾 Đơn hàng của bạn:\n` +
+                orderData.items.map(i => `  • ${i.name} x${i.quantity}`).join('\n') +
+                `\n\n💰 Tổng: ${total.toLocaleString('vi-VN')}₫` +
+                `\n\n📱 Admin sẽ liên hệ xác nhận qua số ${phone}` +
+                `\n☕ Cảm ơn bạn đã đặt hàng tại Hương Coffee!`);
+
+          // Reset
+          cart = [];
+          updateCartUI();
+          closeModal();
+          showToast('Đặt hàng thành công! Admin sẽ liên hệ sớm ❤️');
+
+          // Reset button
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Xác nhận đặt hàng';
+        }, 1500);
+      });
+
+      // ============ CHECKOUT BUTTON ============
+      document.getElementById('checkout-btn').addEventListener('click', openModal);
+
+      // ============ CART TOGGLE ============
       document.getElementById('cart-toggle').addEventListener('click', () => {
         document.getElementById('cart-section').scrollIntoView({ behavior: 'smooth' });
       });
 
-      // Khởi tạo
+      // ============ INIT ============
       renderMenu();
       updateCartUI();
+
+      // Kiểm tra xem admin đã cấu hình webhook chưa
+      if (ADMIN_WEBHOOK_URL.includes('YOUR/SLACK/WEBHOOK')) {
+        console.warn('⚠️ Bạn chưa cấu hình ADMIN_WEBHOOK_URL. Đơn hàng sẽ chỉ được lưu trong console và localStorage.');
+        console.log('💡 Để nhận thông báo qua Slack/Discord, hãy thay ADMIN_WEBHOOK_URL bằng webhook thật.');
+        console.log('📋 Đơn hàng được lưu trong localStorage key: coffee_orders');
+      }
     })();
   </script>
 </body>
